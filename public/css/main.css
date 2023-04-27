@@ -1,0 +1,995 @@
+/*
+|--------------------------------------------------------------------------
+|   CSS Reset
+|--------------------------------------------------------------------------
+*/
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*
+|--------------------------------------------------------------------------
+|   Standards
+|--------------------------------------------------------------------------
+*/
+
+:root {
+    --navbar-bg-color: #0061a8;
+    --navbar-text-color: #eeeeee;
+    --navbar-text-color-focus: #fbe0c4;
+    --navbar-bg-contrast: #2978b5;
+
+    --context-text-color: #35393C;
+    --context-text-color-focus: #eeeeee;
+    --context-bg-color: #0061a8;
+    --context-bg-color-ghost: #35393C;
+}
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    box-sizing: inherit;
+    font-size: 62.5%;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.8rem;
+    line-height: 1.6;
+    background: linear-gradient(
+        rgba(0, 97, 168, 0.2),
+        rgba(0, 97, 168, 0.2)
+      ), url(../uploads/sharing.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    margin-bottom: 10rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+|   Navigation Bar
+|--------------------------------------------------------------------------
+*/
+
+#navbar {
+    --navbar-height: 10vh;
+    height: var(--navbar-height);
+    background-color: var(--navbar-bg-color);
+    left: 0;
+    right: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    margin-bottom: 2rem;
+}
+
+.container {
+    max-width: 120rem;
+    padding: 0 1.4rem;
+    margin: 0 auto;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    align-items: center;
+}
+
+.navbar-item {
+    margin: 0.4em;
+    width: 100%;
+}
+
+.active {
+    background-color: var(--navbar-bg-contrast);
+    border-radius: 5px;
+}
+
+.home-link,
+.navbar-link {
+    font-size: 2rem;
+    color: var(--navbar-text-color);
+    text-decoration: none;
+    display: flex;
+    font-weight: 400;
+    align-items: center;
+    transition: 0.2s all;
+}
+
+.home-link:focus,
+.home-link:hover {
+    color: var(--navbar-text-color-focus);
+}
+
+.navbar-link {
+    justify-content: center;
+    width: 100%;
+    padding: 0.4em 0.8em;
+    border-radius: 5px;
+}
+
+.navbar-link:focus,
+.navbar-link:hover {
+    color: var(--navbar-text-color-focus);
+    background-color: var(--navbar-bg-contrast);
+}
+
+.navbar-logo {
+    background-color: var(--navbar-text-color-focus);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin-right: 0.5em;
+}
+
+.navbar-toggle {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.icon-bar {
+    display: block;
+    width: 25px;
+    height: 4px;
+    margin: 2px;
+    transition: background-color 0.2s ease-in-out,
+                transform 0.2s ease-in-out,
+                opacity 0.2s ease-in-out;
+    background-color: var(--navbar-text-color);
+}
+
+.navbar-toggle:focus .icon-bar,
+.navbar-toggle:hover .icon-bar {
+    background-color: var(--navbar-text-color-focus);
+}
+
+#navbar.opened .navbar-toggle .icon-bar:first-child,
+#navbar.opened .navbar-toggle .icon-bar:last-child {
+    position: absolute;
+    margin: 0;
+    width: 30px;
+}
+
+#navbar.opened .navbar-toggle .icon-bar:first-child {
+    transform: rotate(45deg);
+}
+
+#navbar.opened .navbar-toggle .icon-bar:nth-child(2) {
+    opacity: 0;
+}
+
+#navbar.opened .navbar-toggle .icon-bar:last-child {
+    transform: rotate(-45deg);
+}
+
+.navbar-menu {
+    position: fixed;
+    top: var(--navbar-height);
+    bottom: 0;
+    transition: opacity 0.2s ease-in-out,
+                visibility 0.2s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+#navbar.opened .navbar-menu {
+    background-color: rgba(0, 0, 0, 0.4);
+    opacity: 1;
+    visibility: visible;
+}
+
+.navbar-links {
+    list-style-type: none;
+    max-height: 0;
+    overflow: hidden;
+    position: absolute;
+    background-color: var(--navbar-bg-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    left: 0;
+    right: 0;
+    margin: 1.4rem;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+#navbar.opened .navbar-links {
+    padding: 1em;
+    max-height: none;
+}
+
+@media screen and (min-width: 700px) {
+    .navbar-toggle {
+        display: none;
+    }
+    
+    #navbar .navbar-menu,
+    #navbar.opened .navbar-menu {
+        visibility: visible;
+        opacity: 1;
+        position: static;
+        display: block;
+        height: 100%;
+    }
+
+    #navbar .navbar-links,
+    #navbar.opened .navbar-links {
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        position: static;
+        flex-direction: row;
+        list-style-type: none;
+        max-height: max-content;
+        width: 100%;
+        height: 100%;
+    }
+
+    #navbar .navbar-link:last-child {
+        margin-right: 0;
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
+|   Homepage Index
+|--------------------------------------------------------------------------
+*/
+
+.homeSection {
+    text-align: center;
+}
+
+.homeSection__heading {
+    font-size: 6rem;
+}
+
+@media(max-width: 82.5rem) {
+    .homeSection__heading {
+        font-size: 4rem;
+    }
+}
+
+.homeSection__heading__user {
+    color: var(--context-bg-color);
+}
+
+.homeSection__description {
+    width: 40%;
+    margin: auto;
+}
+
+@media(max-width: 82.5rem) {
+    .homeSection__description {
+        width: 80%;
+    }
+}
+
+@media(max-width: 37.5rem) {
+    .homeSection__description {
+        width: 90%;
+    }
+}
+
+.homeSection__paragraph {
+    font-size: 2.2rem;
+    font-weight: 600;
+}
+
+.homeSection__button {
+    padding-top: 2rem;
+}
+
+.homeSection__btn {
+    font-size: 2rem;
+    padding: 2rem;
+    border: none;
+    color: var(--context-bg-color-focus);
+    background-color: white;
+    height: 100%;
+    border-radius: 5px;
+    transition: 0.2s all;
+}
+
+.homeSection__btn:hover {
+    cursor: pointer;
+    box-shadow: 0 0.5rem 2rem var(--context-bg-color);
+}
+
+.homeSection__btn:nth-of-type(2) {
+    color: var(--context-text-color-focus);
+    background-color: var(--context-bg-color);
+}
+
+/*
+|--------------------------------------------------------------------------
+|   Product Create Form
+|--------------------------------------------------------------------------
+*/
+
+.create-form {
+    width: 50%;
+    margin: auto;
+    box-shadow: 0 0.5rem 2rem black;
+    display: flex;
+    color: var(--context-text-color);
+    background-color: white;
+}
+@media(max-width: 37.5rem) {
+    .create-form {
+        width: 90%;
+    }
+}
+
+.create-form__form {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.create-form__section {
+    margin-top: 4rem;
+    font-size: 140%;
+    width: 100%;
+}
+
+.create-form__input {
+    display: block;
+    margin-top: .5rem;
+    width: 100%;
+    font-size: 80%;
+    font-weight: 400;
+    font-family: sans-serif;
+}
+
+.create-form__input--big {
+    height: 20rem;
+}
+
+.create-form__button {
+    font-size: 100%;
+    width: 25rem;
+    height: 6rem;
+    box-sizing: border-box;
+    background: #07689f;
+    border: none;
+    color: #eeeeee;
+    box-shadow: 0 0 5rem rgba(7, 104, 159, 0.7);
+    transition: 0.2s all;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 62.5rem) {
+    .create-form {
+        width: 90;
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
+|   Product Show
+|--------------------------------------------------------------------------
+*/
+
+.card {
+    width: 50vw;
+    height: 80vh;
+    margin: 0 auto;
+    box-shadow: 0 0.5rem 2rem black;
+    position: relative;
+    background-color: white;
+}
+
+@media(max-width: 37.5rem) {
+    .card {
+        width: 35rem;
+    }
+}
+
+@media(max-width: 25rem) {
+    .card {
+        width: 25rem;
+    }
+}
+
+.card::after {
+    content: "";
+    width: 5rem;
+    height: 5rem;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(7, 104, 159, 0.3);
+    clip-path: polygon(100% 0%, 100% 100%, 0% 100%);
+}
+
+.card__figure {
+    width: 100%;
+    height: 60%;
+}
+
+.card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card__text {
+    padding-left: 2rem;
+    color: var(--context-text-color);
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card__text > a {
+    text-decoration: none;
+    color: var(--context-bg-color);
+}
+
+.card__text > a > i {
+    font-size: 1.5rem;
+    padding-left: 1rem;
+}
+
+.card__btnSection {
+    padding-left: 2rem;
+}
+
+.card__ghostButton,
+.card__button {
+    font-size: 120%;
+    width: 25rem;
+    height: 6rem;
+    box-sizing: border-box;
+    background-color: var(--navbar-bg-color);
+    border: none;
+    color: #eeeeee;
+    box-shadow: 0 0 5rem rgba(7, 104, 159, 0.7);
+    transition: 0.2s all;
+}
+
+.card__ghostButton {
+    background-color: var(--context-bg-color-ghost);
+    box-shadow: none;
+}
+
+@media(max-width: 37.5rem) {
+    .card__button {
+        width: 15rem;
+    }
+}
+
+.card__button:hover {
+    cursor: pointer;
+    box-shadow: 0 0 5rem rgba(7, 104, 159, 0.9);
+}
+
+.card__back_to_home {
+    display: block;
+    margin-top: 2rem;
+    color: var(--context-text-color);
+}
+
+/*
+|--------------------------------------------------------------------------
+|   Product Add Icon
+|--------------------------------------------------------------------------
+*/
+
+i {
+    font-size: 4rem;
+    padding-left: 2rem;
+    color: var(--context-bg-color);
+}
+
+/*
+|--------------------------------------------------------------------------
+|   All Users Index
+|--------------------------------------------------------------------------
+*/
+
+.userCard {
+    grid-column: span 4;
+    width: 100%;
+    height: 15rem;
+    position: relative;
+    color: var(--context-text-color-focus);
+    background-color: var(--navbar-bg-color);
+    border-radius: 5px;
+}
+
+@media(max-width: 56.25rem) {
+    .userCard {
+        grid-column: span 6;
+    }
+}
+@media(max-width: 32.5rem) {
+    .userCard {
+        grid-column: span 12;
+    }
+}
+
+.userCard__header {
+    font-size: 2rem;
+    height: 100%;
+}
+
+.userCard__heading {
+    color: var(--context-text-color-focus);
+}
+
+.userCard__heading > a > i {
+    font-size: 2rem;
+    padding-left: 1rem;
+    color: #ff3333;
+}
+
+/*
+|--------------------------------------------------------------------------
+|   Review Card
+|--------------------------------------------------------------------------
+*/
+
+.reviewCard {
+    grid-column: span 4;
+    width: 100%;
+    height: 15rem;
+    position: relative;
+    color: var(--context-text-color-focus);
+    background-color: var(--navbar-bg-color);
+    border-radius: 5px;
+}
+
+@media(max-width: 56.25rem) {
+    .reviewCard {
+        grid-column: span 6;
+    }
+}
+@media(max-width: 32.5rem) {
+    .reviewCard {
+        grid-column: span 12;
+    }
+}
+
+.reviewCard > article {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    background-color: var(--navbar-bg-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.reviewCard__header {
+    width: 100%;
+    height: 100%;
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.reviewCard__heading {
+    margin-bottom: 1rem;
+}
+
+.reviewCard__paragraph {
+    margin-bottom: 1rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+|   Category Index
+|--------------------------------------------------------------------------
+*/
+
+.categoryCard {
+    grid-column: span 4;
+    width: 100%;
+    height: 15rem;
+    position: relative;
+    color: var(--context-text-color-focus);
+    background-color: var(--navbar-bg-color);
+    border-radius: 5px;
+}
+
+@media(max-width: 56.25rem) {
+    .categoryCard {
+        grid-column: span 6;
+    }
+}
+@media(max-width: 32.5rem) {
+    .categoryCard {
+        grid-column: span 12;
+    }
+}
+
+.categoryCard > a > article {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    background-color: var(--navbar-bg-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.categoryCard__header {
+    font-size: 2rem;
+    height: 100%;
+}
+
+.categoryCard__heading {
+    color: var(--context-text-color-focus);
+}
+
+/*
+|--------------------------------------------------------------------------
+|   Product Index
+|--------------------------------------------------------------------------
+*/
+
+.productCard {
+    grid-column: span 4;
+    width: 100%;
+    height: 35rem;
+    padding: 0 1.4rem;
+    position: relative;
+}
+
+@media(max-width: 56.25rem) {
+    .productCard {
+        grid-column: span 6;
+    }
+}
+@media(max-width: 32.5rem) {
+    .productCard {
+        grid-column: span 12;
+    }
+}
+
+.productCard > a > article {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    background-color: var(--navbar-bg-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.productCard__header {
+    font-size: 2rem;
+    width: 100%;
+    height: 20%;
+}
+
+.productCard__heading {
+    padding-left: 2rem;
+    color: #eeeeee;
+}
+
+.productCard__textSection {
+    width: 100%;
+    height: 20%;
+}
+
+.productCard__text {
+    padding-left: 2rem;
+    color: #eeeeee;
+}
+
+.productCard__btn {
+    border: none;
+    background: white;
+    height: 100%;
+    padding: 0 1rem;
+}
+
+.productCard__figure {
+    width: 100%;
+    height: 60%;
+}
+
+.productCard__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/*
+|--------------------------------------------------------------------------
+|   User Text Section
+|--------------------------------------------------------------------------
+*/
+
+.userSection {
+    width: 50%;
+    margin: 0 auto 4rem ;
+    padding-bottom: 3rem;
+    text-align: center;
+    border-bottom: 5px solid var(--context-bg-color);
+}
+
+@media(max-width: 56.25rem) {
+    .userSection {
+        width: 80%;
+    }
+}
+@media(max-width: 32.5rem) {
+    .userSection {
+        width: 80%;
+    }
+}
+
+.userSection__text--big {
+    font-size: 4rem;
+    padding-top: 2rem;
+    color: var(--context-text-color);
+}
+
+.userSection__text--little {
+    font-size: 2rem;
+    padding-bottom: 2rem;
+    color: var(--context-text-color);
+}
+
+.userSection__btn {
+    width: 50%;
+    height: 100%;
+    padding: 1rem 0;
+    background-color: white;
+    box-shadow: 0 2px 4px var(--context-bg-color);
+    grid-column: span 3;
+    transition: 0.2s all;
+}
+
+.userSection__btn:hover {
+    transform: scale(1.02)
+}
+
+.userSection__btn > a {
+    text-decoration: none;
+    color: var(--context-bg-color);
+}
+
+/*
+|--------------------------------------------------------------------------
+|   Review User
+|--------------------------------------------------------------------------
+*/
+
+.reviewSection {
+    text-align: center;
+    margin: 4rem;
+}
+
+.reviewSection__text {
+    font-size: 4rem;
+    padding-top: 2rem;
+    color: var(--context-text-color);
+}
+
+/*
+|--------------------------------------------------------------------------
+|   Loaned Products
+|--------------------------------------------------------------------------
+*/
+
+.loanedSection {
+    text-align: center;
+    margin: 4rem;
+}
+
+.loanedSection__text {
+    font-size: 4rem;
+    padding-top: 2rem;
+    color: var(--context-text-color);
+}
+
+/*
+|--------------------------------------------------------------------------
+|   Search Wrapper
+|--------------------------------------------------------------------------
+*/
+
+.searchWrapper {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.searchWrapper__text {
+    font-size: 4rem;
+    padding-top: 2rem;
+    color: var(--context-text-color);
+}
+
+.searchWrapper__text--profile {
+    text-decoration: none;
+    color: var(--context-text-color);
+}
+
+.searchWrapper__text--profile:hover {
+    color: var(--context-bg-color);
+}
+
+.searchWrapper__searchBar  {
+    padding: 2rem;
+    margin-top: 2rem;
+    width: 40vw;
+    font-size: 140%;
+}
+
+.searchWrapper__searchBar:focus {
+    outline: 7px solid var(--navbar-bg-color);
+}
+
+@media only screen and (max-width: 1000px) {
+    .searchWrapper__searchBar {
+        width: 80vw;
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
+|   Copyright
+|--------------------------------------------------------------------------
+*/
+
+.copyrightSection {
+	background-color: #010101;
+	border-top: 1px solid #00AAFF;
+    padding: 2rem 0;
+    color: rgba(134, 99, 99, 0.8);
+    text-align: center;
+}
+
+.copyrightSection a {
+    color: white;
+    transition: 0.5s all;
+}
+
+.copyrightSection a:hover {
+    color: #00AAFF;
+}
+
+/*
+|--------------------------------------------------------------------------
+|   Utility Classes
+|--------------------------------------------------------------------------
+*/
+
+.u-grid-12 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    max-width: 120rem;
+    padding: 0 1.4rem;
+    margin: 0 auto;
+}
+
+.u-grid-9 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    margin: auto;
+}
+
+.u-grid-gap-2 {
+    gap: 2rem;
+}
+
+.u-list-style-none {
+    list-style: none;
+}
+
+.u-text-decoration-none {
+    text-decoration: none;
+}
+
+.u-flex-v-center {
+    display: flex;
+    align-items: center;
+}
+
+.u-flex-h-center {
+    display: flex;
+    justify-content: center;
+}
+
+u-max-width {
+    max-width: 120rem;
+    margin: auto;
+}
+
+/*
+|--------------------------------------------------------------------------
+|   Animations
+|--------------------------------------------------------------------------
+*/
+
+.a-popup {
+    animation-name: popup;
+    animation-duration: 0.8s;
+    animation-fill-mode: backwards;
+}
+.a-popup:nth-of-type(2n) {
+    animation-delay: 0.1s;
+}
+.a-popup:nth-of-type(3n) {
+    animation-delay: 0.2s;
+}
+
+@keyframes popup {
+    0% {
+        transform: scale(1.05) translateY(2rem);
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
